@@ -64,91 +64,12 @@ Delete (Eliminar): Para eliminar datos de la base de datos en PHP, se utilizan c
 
 Para ejecutar un CRUD en PHP, generalmente seguirías estos pasos:
 
-1. Conexión a la base de datos: Antes de realizar cualquier operación CRUD, necesitas conectarte a tu base de datos. Puedes hacerlo utilizando extensiones como MySQLi o PDO en PHP. Aquí hay un ejemplo utilizando PDO:
-<?php
-$dsn = 'mysql:host=localhost;dbname=nombre_basedatos';
-$usuario = 'usuario';
-$contraseña = 'contraseña';
+1. Conexión a la base de datos: Antes de realizar cualquier operación CRUD, necesitas conectarte a tu base de datos. Puedes hacerlo utilizando extensiones como MySQLi o PDO en PHP.
+  
+2 Operaciones CRUD: Una vez que tienes una conexión establecida, puedes realizar las operaciones CRUD.
 
-try {
-    $conexion = new PDO($dsn, $usuario, $contraseña);
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Conexión exitosa";
-} catch (PDOException $e) {
-    echo "Error de conexión: " . $e->getMessage();
-}
-?>
-2. Operaciones CRUD: Una vez que tienes una conexión establecida, puedes realizar las operaciones CRUD. Aquí tienes un ejemplo básico de cada una:
-
-Create (Crear):
-
-<?php
-$nombre = "Ejemplo";
-$email = "ejemplo@example.com";
-$edad = 25;
-
-$sql = "INSERT INTO usuarios (nombre, email, edad) VALUES (:nombre, :email, :edad)";
-$stmt = $conexion->prepare($sql);
-$stmt->bindParam(':nombre', $nombre);
-$stmt->bindParam(':email', $email);
-$stmt->bindParam(':edad', $edad);
-
-if ($stmt->execute()) {
-    echo "Usuario creado exitosamente";
-} else {
-    echo "Error al crear usuario";
-}
-?>
-Read (Leer):
-php
-Copy code
-<?php
-$sql = "SELECT * FROM usuarios";
-$stmt = $conexion->prepare($sql);
-$stmt->execute();
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-foreach ($usuarios as $usuario) {
-    echo "Nombre: " . $usuario['nombre'] . ", Email: " . $usuario['email'] . ", Edad: " . $usuario['edad'] . "<br>";
-}
-?>
-Update (Actualizar):
-php
-Copy code
-<?php
-$nuevo_nombre = "Nuevo nombre";
-$id_usuario = 1;
-
-$sql = "UPDATE usuarios SET nombre = :nombre WHERE id = :id";
-$stmt = $conexion->prepare($sql);
-$stmt->bindParam(':nombre', $nuevo_nombre);
-$stmt->bindParam(':id', $id_usuario);
-
-if ($stmt->execute()) {
-    echo "Usuario actualizado exitosamente";
-} else {
-    echo "Error al actualizar usuario";
-}
-?>
-Delete (Eliminar):
-php
-Copy code
-<?php
-$id_usuario = 1;
-
-$sql = "DELETE FROM usuarios WHERE id = :id";
-$stmt = $conexion->prepare($sql);
-$stmt->bindParam(':id', $id_usuario);
-
-if ($stmt->execute()) {
-    echo "Usuario eliminado exitosamente";
-} else {
-    echo "Error al eliminar usuario";
-}
-?>
-3. Cerrar conexión: Una vez que hayas terminado de trabajar con la base de datos, es una buena práctica cerrar la conexión:
-<?php
-$conexion = null;
-?>
+3. Cerrar conexión: Una vez que hayas terminado de trabajar con la base de datos, es una buena práctica cerrar la conexión.
+   
 Recuerda que este es solo un ejemplo básico y que en un entorno de producción deberías considerar aspectos de seguridad, manejo de errores y otros casos especiales. Además, el código puede variar dependiendo del tipo de base de datos que estés utilizando y de tus necesidades específicas.
 ## Nota de Seguridad
 
